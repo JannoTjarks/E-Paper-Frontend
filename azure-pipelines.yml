@@ -10,6 +10,16 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
+- task: SonarCloudPrepare@1
+  inputs:
+    SonarCloud: 'SonarCloud'
+    organization: 'jannotjarks'
+    scannerMode: 'CLI'
+    configMode: 'manual'
+    cliProjectKey: 'E-Paper-Frontend'
+    cliProjectName: 'E-Paper-Frontend'
+    cliSources: 'src/'
+    
 - task: NodeTool@0
   inputs:
     versionSpec: '14.x'
@@ -20,6 +30,10 @@ steps:
     npm install
     ng build
   displayName: 'npm install and build'
+  
+- task: SonarCloudPublish@1
+  inputs:
+    pollingTimeoutSec: '300'
 
 - task: PublishPipelineArtifact@1
   inputs:
