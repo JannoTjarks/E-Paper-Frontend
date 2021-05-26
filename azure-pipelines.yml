@@ -18,6 +18,7 @@ steps:
     configMode: 'manual'
     cliProjectKey: 'jannotjarks_E-Paper_Frontend'
     cliProjectName: 'jannotjarks_E-Paper_Frontend'
+    cliSources: '.'
     
 - task: NodeTool@0
   inputs:
