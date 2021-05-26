@@ -16,9 +16,8 @@ steps:
     organization: 'jannotjarks'
     scannerMode: 'CLI'
     configMode: 'manual'
-    cliProjectKey: 'E-Paper-Frontend'
-    cliProjectName: 'E-Paper-Frontend'
-    cliSources: 'src/'
+    cliProjectKey: 'jannotjarks_E-Paper_Frontend'
+    cliProjectName: 'jannotjarks_E-Paper_Frontend'
     
 - task: NodeTool@0
   inputs:
