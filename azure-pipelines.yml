@@ -10,24 +10,24 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-- task: SonarCloudPrepare@1
-  inputs:
-    SonarCloud: 'SonarCloud-Frontend'
-    organization: 'jannotjarks'
-    scannerMode: 'CLI'
-    configMode: 'manual'
-    cliProjectKey: 'jannotjarks_E-Paper_Frontend'
-    cliProjectName: 'jannotjarks_E-Paper_Frontend'
-    cliSources: '.'
-    extraProperties: |
-      # Additional properties that will be passed to the scanner, 
-      # Put one key=value per line, example:
-      # sonar.exclusions=**/*.bin
-      sonar.sources=src
-      sonar.exclusions=**/node_modules/**
-      sonar.tests=src
-      sonar.test.inclusions=**/*.spec.ts
-      sonar.typescript.lcov.reportPaths=coverage/lcov.info
+# - task: SonarCloudPrepare@1
+#   inputs:
+#     SonarCloud: 'SonarCloud-Frontend'
+#     organization: 'jannotjarks'
+#     scannerMode: 'CLI'
+#     configMode: 'manual'
+#     cliProjectKey: 'jannotjarks_E-Paper_Frontend'
+#     cliProjectName: 'jannotjarks_E-Paper_Frontend'
+#     cliSources: '.'
+#     extraProperties: |
+#       # Additional properties that will be passed to the scanner, 
+#       # Put one key=value per line, example:
+#       # sonar.exclusions=**/*.bin
+#       sonar.sources=src
+#       sonar.exclusions=**/node_modules/**
+#       sonar.tests=src
+#       sonar.test.inclusions=**/*.spec.ts
+#       sonar.typescript.lcov.reportPaths=coverage/lcov.info
     
 - task: NodeTool@0
   inputs:
@@ -40,9 +40,9 @@ steps:
     ng build
   displayName: 'npm install and build'
   
-- task: SonarCloudPublish@1
-  inputs:
-    pollingTimeoutSec: '300'
+# - task: SonarCloudPublish@1
+#   inputs:
+#     pollingTimeoutSec: '300'
 
 - task: PublishPipelineArtifact@1
   inputs:
