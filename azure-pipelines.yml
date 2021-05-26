@@ -12,7 +12,7 @@ pool:
 steps:
 - task: SonarCloudPrepare@1
   inputs:
-    SonarCloud: 'SonarCloud'
+    SonarCloud: 'SonarCloud-Frontend'
     organization: 'jannotjarks'
     scannerMode: 'CLI'
     configMode: 'manual'
