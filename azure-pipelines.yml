@@ -19,6 +19,15 @@ steps:
     cliProjectKey: 'jannotjarks_E-Paper_Frontend'
     cliProjectName: 'jannotjarks_E-Paper_Frontend'
     cliSources: '.'
+    extraProperties: |
+      # Additional properties that will be passed to the scanner, 
+      # Put one key=value per line, example:
+      # sonar.exclusions=**/*.bin
+      sonar.sources=projects
+      sonar.exclusions=**/node_modules/**
+      sonar.tests=projects
+      sonar.test.inclusions=**/*.spec.ts
+      sonar.typescript.lcov.reportPaths=coverage/lcov.info
     
 - task: NodeTool@0
   inputs:
