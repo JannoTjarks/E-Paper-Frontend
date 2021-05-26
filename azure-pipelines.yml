@@ -23,9 +23,9 @@ steps:
       # Additional properties that will be passed to the scanner, 
       # Put one key=value per line, example:
       # sonar.exclusions=**/*.bin
-      sonar.sources=projects
+      sonar.sources=src
       sonar.exclusions=**/node_modules/**
-      sonar.tests=projects
+      sonar.tests=src
       sonar.test.inclusions=**/*.spec.ts
       sonar.typescript.lcov.reportPaths=coverage/lcov.info
     
