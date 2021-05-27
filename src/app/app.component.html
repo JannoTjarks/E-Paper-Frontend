@@ -1,15 +1,31 @@
 <div class="container mx-auto">
-    <table id="epaper-table" class="table">
+    <table id="newspapers-table" class="table">
         <thead>
         <tr>
             <th scope="col">Name</th>
-            <th scope="col">Position</th>        
+            <th scope="col">File Path</th>        
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let x of dataSource">        
-            <td>{{ x.name }}</td>
-            <td>{{ x.position }}</td>        
+        <tr *ngFor="let x of dataSourceNewsPapers">        
+            <td>{{ x.name }}</td>            
+            <td>{{ x.publicationDate }}</td>
+            <td>{{ x.weekday }}</td>
+        </tr>      
+        </tbody>
+    </table>
+    <table id="brochures-table" class="table">
+        <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">File Path</th>        
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let x of dataSourceBrochures">        
+            <td>{{ x.name }}</td>            
+            <td>{{ x.publicationDate }}</td>
+            <td>{{ x.weekday }}</td>
         </tr>      
         </tbody>
     </table>
@@ -21,7 +37,7 @@
             © <span>{{ year }}</span> - <a href="https://epaper.jtjarks.de/">Janno Tjarks</a>
         </p>
     </div>
-    <div class="col form-check form-switch">
+    <div class="col form-check form-switch float-end">
         <input class="form-check-input" [(ngModel)]="usingDarkTheme" type="checkbox" (change)="toggleDarkTheme()" id="switchDarkMode">
         <label class="form-check-label" for="switchDarkTheme">Dark Mode</label>
     <div>
