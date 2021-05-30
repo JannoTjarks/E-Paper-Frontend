@@ -31,7 +31,7 @@ export class AppComponent {
             "filePath": element.filePath,
             "imagePath": element.imagePath,
             "name": element.name,
-            "publicationDate": formatDate(element.publicationDate, 'yyyy-MM-dd', 'en-US'),
+            "publicationDate": formatDate(element.publicationDate, 'dd.MM.yyyy', 'en-US'),
             "weekday": element.weekday
           } 
           console.log(epaper)
