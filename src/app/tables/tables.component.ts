@@ -9,8 +9,7 @@ import { HttpClient } from '@angular/common/http';
 })
 
 export class TablesComponent implements OnInit {
-  dataSourceNewsPapers: EPaper[] = [];
-  dataSourceBrochures: EPaper[] = [];
+  dataSourceEPapers: EPaper[] = [];
 
   constructor(private http: HttpClient) { }
 
@@ -41,8 +40,7 @@ export class TablesComponent implements OnInit {
 
   getEpaperInfos(): void {
     this.http.get<EPaper[]>('https://api.jtjarks.de/api/epaper/newest').subscribe(data => {
-      let newsPapers: EPaper[] = [];
-      let brochures: EPaper[] = [];
+      let ePapers: EPaper[] = [];
       data.forEach(element => {
         let epaper: EPaper = {
           "category": element.category,
@@ -52,19 +50,11 @@ export class TablesComponent implements OnInit {
           "publicationDate": formatDate(element.publicationDate, 'dd.MM.yyyy', 'en-US'),
           "weekday": element.weekday
         } 
-        console.log(epaper)
 
-        if(epaper.category == "Zeitungen") {
-          newsPapers.push(epaper);
-        }                   
-        else if (epaper.category == "Prospekte") {
-          
-          brochures.push(epaper);
-        }
+        ePapers.push(epaper);
       });
       
-      this.dataSourceNewsPapers = newsPapers;
-      this.dataSourceBrochures = brochures;
+      this.dataSourceEPapers = ePapers;
     })
   }
 }
