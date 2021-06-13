@@ -1,45 +1,13 @@
 <div class="container text-center">
-    <h1 class="mb-5 mt-5"><u>E-Paper Sammlung</u></h1>
-    <h2 class="mb-3">Zeitungen</h2>    
-    <table id="newspapers-table" class="table dataTable no-footer">
-        <thead>
-        <tr role=row>
-            <th scope="col" style="width: 33%">Name</th>
-            <th scope="col" style="width: 33%">Neuste Ausgabe</th>    
-            <th scope="col" style="width: 33%"></th>    
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let x of dataSourceNewsPapers">        
-            <td scope="row">{{ x.name }}</td>     
-            <td scope="row"><a href="https://e-paper.jtjarks.de/{{x.filePath}}">{{ x.publicationDate }}</a></td>    
-            <td scope="row">Archiv</td>
-        </tr>      
-        </tbody>
-    </table>
-    <h2 class="mb-3">Prospekte</h2>
-    <table id="brochures-table" class="table dataTable no-footer">
-        <thead>
-        <tr role=row>
-            <th scope="col" style="width: 33%">Name</th>
-            <th scope="col" style="width: 33%">Neuste Ausgabe</th> 
-            <th scope="col" style="width: 33%"></th>       
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let x of dataSourceBrochures">        
-            <td scope="row">{{ x.name }}</td>            
-            <td scope="row"><a href="https://e-paper.jtjarks.de/{{x.filePath}}">{{ x.publicationDate }}</a></td>
-            <td scope="row">Archiv</td>
-        </tr>      
-        </tbody>
-    </table>
+    <h1 class="mb-5 mt-5"><u>E-Paper - Janno Tjarks</u></h1>
 </div>
-      
+
+<router-outlet></router-outlet>
+
 <div class="border-top container row mx-auto text-muted">        
     <div class="text-center col-5">
         <p>
-            © <span>{{ year }}</span> - <a href="https://epaper.jtjarks.de/">Janno Tjarks</a>
+            © <span>{{ year }}</span> - <a href="https://e-paper.jtjarks.de/">Janno Tjarks</a>
         </p>
     </div>
     <div class="col form-check form-switch float-end">
@@ -47,5 +15,3 @@
         <label class="form-check-label" for="switchDarkTheme">Dark Mode</label>
     <div>
 </div>
-
-<router-outlet></router-outlet>

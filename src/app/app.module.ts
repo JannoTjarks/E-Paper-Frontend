@@ -5,10 +5,14 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { ArchiveComponent } from './archive/archive.component';
+import { TablesComponent } from './tables/tables.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ArchiveComponent,
+    TablesComponent
   ],
   imports: [
     BrowserModule,
@@ -20,12 +24,3 @@ import { AppComponent } from './app.component';
   bootstrap: [AppComponent]
 })
 export class AppModule { }
-
-export interface EPaper {
-  category: string;
-  filePath: number;
-  imagePath: number;
-  name: string;
-  publicationDate: string;
-  weekday: string;
-}
