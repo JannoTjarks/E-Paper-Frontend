@@ -1,6 +1,6 @@
 <div class="container text-center"> 
     <h2 class="mb-3">Zeitungen</h2>    
-    <table id="newspapers-table" class="table data-table">
+    <table id="newspapers-table" class="table data-table" [class.table-dark]= "isDarkThemeActiv">
         <thead>
             <tr role=row>
                 <th scope="col" style="width: 33%">Name</th>
@@ -19,7 +19,7 @@
         </tbody>
     </table>        
     <h2 class="mb-3">Prospekte</h2>
-    <table id="brochures-table" class="table data-table">
+    <table id="brochures-table" class="table data-table" [class.table-dark]= "isDarkThemeActiv">
         <thead>
             <tr role=row>
                 <th scope="col" style="width: 33%">Name</th>

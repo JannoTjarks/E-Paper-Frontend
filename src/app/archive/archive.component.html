@@ -2,7 +2,7 @@
     <h2 class="mb-3">Archive - {{ epaper }}</h2>
     <a [routerLink]="['/archive']" [queryParams]="{ epaper: epaper, all: true }">Alle Ausgaben anzeigen</a>
     <!-- <table id="archive-table" class="table data-table" [ngClass]="{'table-dark': 'true'}">-->        
-    <table id="archive-table" class="table data-table" [class.table-dark]= "true">    
+    <table id="archive-table" class="table data-table" [class.table-dark]= "isDarkThemeActiv">    
         <thead>
             <tr role=row>                
                 <th scope="col" style="width: 50%">Veröffentlichkeitsdatum</th>                    

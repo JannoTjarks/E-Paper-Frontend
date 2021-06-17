@@ -1,6 +1,7 @@
 import { formatDate } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { DarkThemeService } from '../darktheme.service';
 
 @Component({
   selector: 'app-tables',
@@ -9,36 +10,19 @@ import { HttpClient } from '@angular/common/http';
 })
 
 export class TablesComponent implements OnInit {
+  isDarkThemeActiv: boolean = false;
   dataSourceEPapers: EPaper[] = [];
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private darkTheme: DarkThemeService) { }
 
   ngOnInit(): void {  
-    this.detectColorScheme();      
+     
     this.getEpaperInfos();
-  }
-
-  toggleDarkTheme(): void {         
-    document.getElementById("newspapers-table")?.classList.toggle("table-dark")
-    document.getElementById("brochures-table")?.classList.toggle("table-dark")
-  }
-
-  detectColorScheme(): void {
-    //local storage is used to override OS theme settings
-    if(localStorage.getItem("theme")){
-      if(localStorage.getItem("theme") == "dark"){
-        this.toggleDarkTheme();
-      }
-    } else if(!window.matchMedia) {
-        //matchMedia method not supported
-        return;
-    } else if(window.matchMedia("(prefers-color-scheme: dark)").matches) {
-        //OS theme setting detected as dark
-        this.toggleDarkTheme()
-    }
-  }
+  }  
 
   getEpaperInfos(): void {
+    this.darkTheme.isDarkThemeActive$.subscribe(value => this.isDarkThemeActiv = value)
+
     this.http.get<EPaper[]>('https://api.jtjarks.de/api/epaper/newest').subscribe(data => {
       let ePapers: EPaper[] = [];
       data.forEach(element => {

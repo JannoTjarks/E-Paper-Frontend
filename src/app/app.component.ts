@@ -1,5 +1,6 @@
 
 import { Component } from '@angular/core';
+import { DarkThemeService } from './darktheme.service';
 
 @Component({
   selector: 'app-root',
@@ -12,31 +13,21 @@ export class AppComponent {
   usingDarkTheme = false;
   year = new Date().getFullYear();
 
+  constructor(private darkTheme: DarkThemeService) {}
+
   ngOnInit(): void {    
-    this.detectColorScheme();
+    if(this.darkTheme.isDarkThemeActive$.getValue() === true) {
+      document.body.classList.toggle("bg-dark");
+      document.body.classList.toggle("text-white");
+    }        
+
+    this.usingDarkTheme = this.darkTheme.isDarkThemeActive$.getValue();
   }
 
-  toggleDarkTheme(): void {
-    document.body.classList.toggle("bg-dark")
-    document.body.classList.toggle("text-white")                  
-  }
-
-  detectColorScheme(): void {
-    //local storage is used to override OS theme settings
-    if(localStorage.getItem("theme")){
-      if(localStorage.getItem("theme") == "dark"){
-          this.usingDarkTheme = true;
-      }
-    } else if(!window.matchMedia) {
-        //matchMedia method not supported
-        return;
-    } else if(window.matchMedia("(prefers-color-scheme: dark)").matches) {
-        //OS theme setting detected as dark
-        this.usingDarkTheme = true;
-    }
-
-    if(this.usingDarkTheme === true) {      
-      this.toggleDarkTheme()
-    }
-  }
+  toggleDarkTheme(): void {    
+    document.body.classList.toggle("bg-dark");
+    document.body.classList.toggle("text-white");
+    this.darkTheme.toggleDarkTheme();
+    this.usingDarkTheme = this.darkTheme.isDarkThemeActive$.getValue();    
+  }  
 }

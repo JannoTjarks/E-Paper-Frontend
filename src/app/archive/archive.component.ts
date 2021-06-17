@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { formatDate } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
+import { DarkThemeService } from '../darktheme.service';
 
 @Component({
   selector: 'app-archive',
@@ -9,13 +10,15 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./archive.component.css']
 })
 export class ArchiveComponent implements OnInit {
+  isDarkThemeActiv: boolean = false;
   dataSourceEPapers: EPaper[] = [];
   epaper: any = "";
 
-  constructor(private http: HttpClient, private route: ActivatedRoute) { }
+  constructor(private http: HttpClient, private route: ActivatedRoute, private darkTheme: DarkThemeService) { }
 
   ngOnInit(): void {
-    this.detectColorScheme();
+    this.darkTheme.isDarkThemeActive$.subscribe(value => this.isDarkThemeActiv = value)
+    
     this.route.queryParamMap
       .subscribe(params => {
         this.epaper = params.get('epaper')
@@ -29,25 +32,6 @@ export class ArchiveComponent implements OnInit {
         }        
       }
     );
-  }
-
-  toggleDarkTheme(): void {         
-    //document.getElementById("archive-table")?.classList.toggle("table-dark")
-  }
-
-  detectColorScheme(): void {
-    //local storage is used to override OS theme settings
-    if(localStorage.getItem("theme")){
-      if(localStorage.getItem("theme") == "dark"){
-        this.toggleDarkTheme();
-      }
-    } else if(!window.matchMedia) {
-        //matchMedia method not supported
-        return;
-    } else if(window.matchMedia("(prefers-color-scheme: dark)").matches) {
-        //OS theme setting detected as dark
-        this.toggleDarkTheme()
-    }
   }
 
   getEpaperInfos(epaper: any, all: boolean): void {
