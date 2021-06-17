@@ -9,23 +9,45 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./archive.component.css']
 })
 export class ArchiveComponent implements OnInit {
-  dataSourceEPapers: EPaper[] = [];  
+  dataSourceEPapers: EPaper[] = [];
+  epaper: any = "";
 
   constructor(private http: HttpClient, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.detectColorScheme();
     this.route.queryParamMap
       .subscribe(params => {
+        this.epaper = params.get('epaper')
         if(params.get("all") != null) {
           console.log("not null")
-          this.getEpaperInfos(params.get('epaper'), true);
+          this.getEpaperInfos(this.epaper, true);
         } 
         else {
           console.log("null")
-          this.getEpaperInfos(params.get('epaper'), false);
+          this.getEpaperInfos(this.epaper, false);
         }        
       }
     );
+  }
+
+  toggleDarkTheme(): void {         
+    //document.getElementById("archive-table")?.classList.toggle("table-dark")
+  }
+
+  detectColorScheme(): void {
+    //local storage is used to override OS theme settings
+    if(localStorage.getItem("theme")){
+      if(localStorage.getItem("theme") == "dark"){
+        this.toggleDarkTheme();
+      }
+    } else if(!window.matchMedia) {
+        //matchMedia method not supported
+        return;
+    } else if(window.matchMedia("(prefers-color-scheme: dark)").matches) {
+        //OS theme setting detected as dark
+        this.toggleDarkTheme()
+    }
   }
 
   getEpaperInfos(epaper: any, all: boolean): void {

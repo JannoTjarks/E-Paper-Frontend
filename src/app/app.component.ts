@@ -18,9 +18,7 @@ export class AppComponent {
 
   toggleDarkTheme(): void {
     document.body.classList.toggle("bg-dark")
-    document.body.classList.toggle("text-white")              
-    document.getElementById("newspapers-table")?.classList.toggle("table-dark")
-    document.getElementById("brochures-table")?.classList.toggle("table-dark")
+    document.body.classList.toggle("text-white")                  
   }
 
   detectColorScheme(): void {
