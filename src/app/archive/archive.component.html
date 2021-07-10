@@ -5,12 +5,14 @@
     <table id="archive-table" class="table data-table" [class.table-dark]= "isDarkThemeActiv">    
         <thead>
             <tr role=row>                
-                <th scope="col" style="width: 50%">Veröffentlichkeitsdatum</th>                    
+                <th scope="col" style="width: 50%"></th>
+                <th scope="col" style="width: 50%">Veröffentlichkeitsdatum</th>                                  
             </tr>
         </thead>
         <tbody>
             <ng-container *ngFor="let epaper of dataSourceEPapers">
                 <tr>        
+                    <td scope="row"><img src="https://content.jtjarks.de{{epaper.imagePath}}" style="width:auto;max-height:200px;" class="img-thumbnail" alt="{{ epaper.imagePath }}"></td>
                     <td scope="row"><a href="https://content.jtjarks.de{{epaper.filePath}}">{{ epaper.publicationDate }}</a></td>                    
                 </tr> 
             </ng-container>
