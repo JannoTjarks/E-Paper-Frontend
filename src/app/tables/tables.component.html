@@ -3,17 +3,19 @@
     <table id="newspapers-table" class="table data-table" [class.table-dark]= "isDarkThemeActiv">
         <thead>
             <tr role=row>
-                <th scope="col" style="width: 33%">Name</th>
-                <th scope="col" style="width: 33%">Neuste Ausgabe</th>    
-                <th scope="col" style="width: 33%"></th>    
+                <th scope="col" *ngIf="!isUsingSmallScreen" style="width: 25%"></th>
+                <th scope="col" style="width: 25%">Name</th>
+                <th scope="col" style="width: 25%">Neuste Ausgabe</th>    
+                <th scope="col" style="width: 25%"></th>                
             </tr>
         </thead>
         <tbody>
             <ng-container *ngFor="let epaper of dataSourceEPapers">
                 <tr *ngIf="(epaper.category == 'Zeitungen')">        
+                    <td scope="row" *ngIf="!isUsingSmallScreen"><img src="https://content.jtjarks.de{{epaper.imagePath}}" style="width:auto;max-height:200px;" class="img-thumbnail" alt="{{ epaper.imagePath }}"></td>
                     <th scope="row">{{ epaper.name }}</th>     
                     <td scope="row"><a href="https://content.jtjarks.de{{epaper.filePath}}">{{ epaper.publicationDate }}</a></td>    
-                    <td scope="row"><a [routerLink]="['/archive']" [queryParams]="{ epaper: epaper.name }">Archiv</a></td>
+                    <td scope="row"><a [routerLink]="['/archive']" [queryParams]="{ epaper: epaper.name }">Archiv</a></td>                
                 </tr> 
             </ng-container>                 
         </tbody>
@@ -22,6 +24,7 @@
     <table id="brochures-table" class="table data-table" [class.table-dark]= "isDarkThemeActiv">
         <thead>
             <tr role=row>
+                <th scope="col" *ngIf="!isUsingSmallScreen" style="width: 25%"></th>
                 <th scope="col" style="width: 33%">Name</th>
                 <th scope="col" style="width: 33%">Neuste Ausgabe</th>    
                 <th scope="col" style="width: 33%"></th>    
@@ -29,7 +32,30 @@
         </thead>
         <tbody>
             <ng-container *ngFor="let epaper of dataSourceEPapers">
-                <tr *ngIf="(epaper.category == 'Prospekte')">        
+                <tr *ngIf="(epaper.category == 'Prospekte')">      
+                    <td scope="row" *ngIf="!isUsingSmallScreen"><img src="https://content.jtjarks.de{{epaper.imagePath}}" style="width:auto;max-height:200px;" class="img-thumbnail" alt="{{ epaper.imagePath }}"></td>  
+                    <th scope="row">{{ epaper.name }}</th>     
+                    <td scope="row"><a href="https://content.jtjarks.de{{epaper.filePath}}">{{ epaper.publicationDate }}</a></td>    
+                    <td scope="row"><a [routerLink]="['/archive']" [queryParams]="{ epaper: epaper.name }">Archiv</a></td>
+                </tr> 
+            </ng-container>                 
+        </tbody>
+    </table>
+    <hr class="mt-5 mb-5">
+    <h2 class="mb-3">Nicht mehr aktuell</h2>
+    <table id="brochures-table" class="table data-table" [class.table-dark]= "isDarkThemeActiv">
+        <thead>
+            <tr role=row>
+                <th scope="col" *ngIf="!isUsingSmallScreen" style="width: 25%"></th>
+                <th scope="col" style="width: 33%">Name</th>
+                <th scope="col" style="width: 33%">Neuste Ausgabe</th>    
+                <th scope="col" style="width: 33%"></th>    
+            </tr>
+        </thead>
+        <tbody>
+            <ng-container *ngFor="let epaper of dataSourceEPapers">
+                <tr *ngIf="(epaper.category == 'Nicht mehr aktuell')">      
+                    <td scope="row" *ngIf="!isUsingSmallScreen"><img src="https://content.jtjarks.de{{epaper.imagePath}}" style="width:auto;max-height:200px;" class="img-thumbnail" alt="{{ epaper.imagePath }}"></td>  
                     <th scope="row">{{ epaper.name }}</th>     
                     <td scope="row"><a href="https://content.jtjarks.de{{epaper.filePath}}">{{ epaper.publicationDate }}</a></td>    
                     <td scope="row"><a [routerLink]="['/archive']" [queryParams]="{ epaper: epaper.name }">Archiv</a></td>

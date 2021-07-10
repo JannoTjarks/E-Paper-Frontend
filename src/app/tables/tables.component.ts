@@ -11,12 +11,16 @@ import { DarkThemeService } from '../darktheme.service';
 
 export class TablesComponent implements OnInit {
   isDarkThemeActiv: boolean = false;
+  isUsingSmallScreen = false;
   dataSourceEPapers: EPaper[] = [];
 
   constructor(private http: HttpClient, private darkTheme: DarkThemeService) { }
 
   ngOnInit(): void {  
-     
+    if (window.screen.width <= 1000) { // 768px portrait
+      this.isUsingSmallScreen = true;
+    }
+    
     this.getEpaperInfos();
   }  
 
