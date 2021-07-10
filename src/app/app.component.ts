@@ -1,4 +1,3 @@
-
 import { Component } from '@angular/core';
 import { DarkThemeService } from './darktheme.service';
 
