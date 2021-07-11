@@ -9,26 +9,83 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
-steps:
-- task: NodeTool@0
-  inputs:
-    versionSpec: '14.x'
-  displayName: 'Install Node.js'
+stages:
+  - stage: Build
 
-- script: |
-    npm install -g @angular/cli
-    npm install
-    ng build --output-path $(Build.ArtifactStagingDirectory)/dist
-  displayName: 'npm install and build'
+    jobs:
+    - job : 
+      displayName: Build
+      steps:
+      - task: NodeTool@0
+        inputs:
+          versionSpec: '14.x'
+        displayName: 'Install Node.js'
 
-- task: CopyFiles@2
-  displayName: "Copy Dockerfile into artifact"
-  inputs:
-    Contents: 'Dockerfile'
-    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+      - script: |
+          npm install -g @angular/cli
+          npm install
+          ng build --output-path $(Build.ArtifactStagingDirectory)/dist
+        displayName: 'npm install and build'
 
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'drop'
-    publishLocation: 'Container'
+      - task: CopyFiles@2
+        displayName: "Copy Dockerfile into artifact"
+        inputs:
+          Contents: 'Dockerfile'
+          TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
+      - task: PublishBuildArtifacts@1
+        inputs:
+          PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+          ArtifactName: 'drop'
+          publishLocation: 'Container'
+
+  - stage: PublishDocker
+    displayName: Publish to Docker
+    
+    jobs:
+    - deployment:
+      displayName: Publish to Docker
+      environment: Production
+    
+      variables:
+        - group: docker-settings
+      
+      strategy:
+          runOnce:
+              deploy:
+                  steps:
+
+                  - task: Docker@2
+                    displayName: "Build and publish container"
+                    inputs:
+                      containerRegistry: 'DockerHub'
+                      repository: 'jannotjarks/e-paper-frontend'
+                      command: 'buildAndPush'
+                      Dockerfile: '/home/vsts/work/1/drop/Dockerfile'
+                      tags: |
+                        $(Build.BuildId)
+                        latest
+
+  - stage: Deployment
+    jobs:
+      - deployment: DeploymentDocker
+        displayName: Deployment of Docker Container
+        environment: Production
+        
+        strategy:
+            runOnce:
+                deploy:
+                    steps:
+                    - task: SSH@0
+                      displayName: 'Stops and removes running Docker Container with the image'
+                      inputs:
+                        sshEndpoint: 'root@docker.jtjarks.de'
+                        commands: 'bash /root/remove-docker-container-by-image.sh jannotjarks/e-paper-frontend:latest'
+
+                    - task: SSH@0
+                      displayName: 'Refresh Docker Container on docker.jtjarks.de'
+                      inputs:
+                        sshEndpoint: 'root@docker.jtjarks.de'
+                        commands: | 
+                          docker pull jannotjarks/e-paper-frontend:latest
+                          docker run -p 8081:80 -d --restart unless-stopped jannotjarks/e-paper-frontend:latest
