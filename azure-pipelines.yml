@@ -88,4 +88,4 @@ stages:
                         sshEndpoint: 'root@docker.jtjarks.de'
                         commands: | 
                           docker pull jannotjarks/e-paper-frontend:latest
-                          docker run -p 8081:80 -d jannotjarks/e-paper-frontend:latest --restart
+                          docker run -p 8081:80 -d --restart always jannotjarks/e-paper-frontend:latest
