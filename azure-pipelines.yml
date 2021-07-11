@@ -18,7 +18,7 @@ steps:
 - script: |
     npm install -g @angular/cli
     npm install
-    ng build
+    ng build --output-path $(Build.ArtifactStagingDirectory)
   displayName: 'npm install and build'
 
 - task: CopyFiles@2
@@ -27,7 +27,8 @@ steps:
     Contents: 'Dockerfile'
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
-- task: PublishPipelineArtifact@1
+- task: PublishBuildArtifacts@1
   inputs:
-    targetPath: $(System.DefaultWorkingDirectory)/dist/e-paper-frontend/
-    artifactName: app
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
