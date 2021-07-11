@@ -65,3 +65,27 @@ stages:
                       tags: |
                         $(Build.BuildId)
                         latest
+
+  - stage: Deployment
+    jobs:
+      - deployment: DeploymentDocker
+        displayName: Deployment of Docker Container
+        environment: Production
+        
+        strategy:
+            runOnce:
+                deploy:
+                    steps:
+                    - task: SSH@0
+                      displayName: 'Stops and removes running Docker Container with the image'
+                      inputs:
+                        sshEndpoint: 'root@docker.jtjarks.de'
+                        commands: '/root/remove-docker-container-by-image.sh jannotjarks/e-paper-frontend:latest'
+
+                    - task: SSH@0
+                      displayName: 'Refresh Docker Container on docker.jtjarks.de'
+                      inputs:
+                        sshEndpoint: 'root@docker.jtjarks.de'
+                        commands: | 
+                          docker pull jannotjarks/e-paper-frontend:latest
+                          docker run -p 8081:80 -d jannotjarks/e-paper-frontend:latest --restart
