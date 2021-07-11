@@ -6,14 +6,14 @@
         <div class="row">
             <ng-container *ngFor="let epaper of dataSourceEPapers">                                              
                 <div class="col-sm-3">
-                    <a href="https://content.jtjarks.de{{epaper.filePath}}">
+                    <a href="https://epaper.jtjarks.de/content{{epaper.filePath}}">
                         <img
-                            src="https://content.jtjarks.de{{epaper.imagePath}}"
+                            src="https://epaper.jtjarks.de/content{{epaper.filePath}}"
                             class="w-50 shadow-1-strong rounded mb-4"                                
                             alt="{{ epaper.imagePath }}"
                         />                            
                     </a>
-                    <p><a href="https://content.jtjarks.de{{epaper.filePath}}">{{ epaper.publicationDate }}</a></p>
+                    <p><a href="https://epaper.jtjarks.de/content{{epaper.filePath}}">{{ epaper.publicationDate }}</a></p>
                 </div>                                
             </ng-container>
         </div>          
