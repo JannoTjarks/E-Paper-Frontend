@@ -21,13 +21,13 @@ steps:
     ng build
   displayName: 'npm install and build'
 
-- task: PublishPipelineArtifact@1
-  inputs:
-    targetPath: $(System.DefaultWorkingDirectory)/dist/e-paper-frontend/
-    artifactName: app
-
 - task: CopyFiles@2
   displayName: "Copy Dockerfile into artifact"
   inputs:
     Contents: 'Dockerfile'
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
+- task: PublishPipelineArtifact@1
+  inputs:
+    targetPath: $(System.DefaultWorkingDirectory)/dist/e-paper-frontend/
+    artifactName: app
