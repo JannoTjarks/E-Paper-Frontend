@@ -1,21 +1,21 @@
 <div class="container text-center"> 
     <h2 class="mb-3">Archive - {{ epaper }}</h2>
     <a [routerLink]="['/archive']" [queryParams]="{ epaper: epaper, all: true }">Alle Ausgaben anzeigen</a>
-    <!-- <table id="archive-table" class="table data-table" [ngClass]="{'table-dark': 'true'}">-->        
-    <table id="archive-table" class="table data-table" [class.table-dark]= "isDarkThemeActiv">    
-        <thead>
-            <tr role=row>                
-                <th scope="col" style="width: 50%"></th>
-                <th scope="col" style="width: 50%">Veröffentlichkeitsdatum</th>                                  
-            </tr>
-        </thead>
-        <tbody>
-            <ng-container *ngFor="let epaper of dataSourceEPapers">
-                <tr>        
-                    <td scope="row"><img src="https://content.jtjarks.de{{epaper.imagePath}}" style="width:auto;max-height:200px;" class="img-thumbnail" alt="{{ epaper.imagePath }}"></td>
-                    <td scope="row"><a href="https://content.jtjarks.de{{epaper.filePath}}">{{ epaper.publicationDate }}</a></td>                    
-                </tr> 
+    <hr class="mt-2 mb-2">  
+    <div class="container">
+        <div class="row">
+            <ng-container *ngFor="let epaper of dataSourceEPapers">                                              
+                <div class="col-sm-3">
+                    <a href="https://content.jtjarks.de{{epaper.filePath}}">
+                        <img
+                            src="https://content.jtjarks.de{{epaper.imagePath}}"
+                            class="w-50 shadow-1-strong rounded mb-4"                                
+                            alt="{{ epaper.imagePath }}"
+                        />                            
+                    </a>
+                    <p><a href="https://content.jtjarks.de{{epaper.filePath}}">{{ epaper.publicationDate }}</a></p>
+                </div>                                
             </ng-container>
-        </tbody>
-    </table>
+        </div>          
+    </div>
 </div>
